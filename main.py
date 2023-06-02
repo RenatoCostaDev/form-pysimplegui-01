@@ -2,18 +2,45 @@ import PySimpleGUI as sg
 
 class TelaPython:
     def __init__(self) -> None:
+        sg.change_look_and_feel('DarkBlue') #https://user-images.githubusercontent.com/46163555/173203488-7fef44b5-000f-48b9-b353-625c214e41d4.png
         #layout
         layout = [
-            [sg.Text('Nome'), sg.Input()],
-            [sg.Text('Idade'), sg.Input()],
-            [sg.Button(('Enviar Dados'))]
+            [sg.Text('Nome', size=(5, 0)), sg.Input(size=(15, 0), key='nome')],
+            [sg.Text('Idade', size=(5, 0)), sg.Input(size=(15, 0), key='idade')],
+            [sg.Text('Quais os provedores de e-mail são aceitos ?')],
+            [sg.Checkbox('Gmail', key='gmail')], [sg.Checkbox('Outlook', key='outlook')], [sg.Checkbox('Yahoo', key='yahoo')],
+            [sg.Text('Aceita cartão')],
+            [sg.Radio('Sim', 'cartões',key='aceitaCartao'), sg.Radio('Não', 'cartões', key='naoAceitaCartao')],
+            [sg.Slider(range=(0, 255), default_value=0, orientation='h', size=(15, 20), key='sliderVelocidade')],
+            [sg.Button(('Enviar Dados'))],
+            [sg.Output(size=(30, 20))]
         ]
         #janela
-        janela = sg.Window('Dados do Usuáro').layout(layout)
-        #extrair dados da tela
-        self.button, self.values = janela.Read()
+        self.janela = sg.Window('Dados do Usuáro').layout(layout)
 
     def Iniciar(self):
-        print(self.values)
+        while True:
+            #extrair dados da tela
+            self.button, self.values = self.janela.Read()
+            #print(self.values)
+            # nome = self.values['nome']
+            # idade = self.values['idade']
+            # aceita_gmail = self.values['gmail']
+            # aceita_outlook = self.values['outlook']
+            # aceita_yahoo = self.values['yahoo']
+            # aceita_cartao = self.values['aceitaCartao']
+            # nao_aceita_cartao = self.values['naoAceitaCartao']
+            # velocidade_script = self.values['sliderVelocidade']
+            # print(f'nome: {nome}')
+            # print(f'idade: {idade}')
+            # print(f'aceita gmail: {aceita_gmail}')
+            # print(f'aceita outlook: {aceita_outlook}')
+            # print(f'aceita yahoo: {aceita_yahoo}')
+            # print(f'Aceita cartão: {aceita_cartao}')
+            # print(f'Não aceita cartão: {nao_aceita_cartao}')
+            # print(f'Velocidade Scripts: {velocidade_script}')
+            for key,value in self.values.items():
+                print(f'{key}: {value}')
+
 tela = TelaPython()
 tela.Iniciar()
